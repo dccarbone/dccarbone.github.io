@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Diego Carbone · catalog</title>
+<meta name="description" content="Apps, Claude Code mods and skills by Diego Carbone.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add('js')</script>
+<style>
+:root {
+  --page:#fafafc; --card:#ffffff; --line:#eeeef3; --ink:#1e1b3a; --muted:#7c7c96; --navy:#25234a;
+  --blue:#3d5afe; --green:#15803d; --red:#ff3b5c; --orange:#ff9a1f; --chip:#f1f1f5;
+  --shadow:0 10px 30px rgba(20,20,60,.08); --ease:cubic-bezier(.2,.7,.1,1);
+}
+* { box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { margin:0; color:var(--ink); font:400 16px/1.6 "Plus Jakarta Sans", system-ui, sans-serif; -webkit-font-smoothing:antialiased;
+  background: radial-gradient(900px 600px at 100% 0%, #ff8a3d 0%, transparent 55%), linear-gradient(135deg, #ff1cb8 0%, #c010d0 45%, #3b0a4a 80%, #0b0610 100%); background-attachment:fixed; min-height:100vh; }
+a { color:inherit; text-decoration:none; }
+:focus-visible { outline:2px solid var(--blue); outline-offset:3px; border-radius:8px; }
+img { display:block; width:100%; height:auto; }
+p { margin:0; }
+h1, h2, h3 { margin:0; letter-spacing:-.03em; }
+
+.shell { max-width:1280px; margin:clamp(16px,3vw,40px) auto; padding:0 clamp(12px,2vw,24px); position:relative; }
+.shell::before { content:""; position:absolute; inset:24px -6px -14px 6px; border-radius:44px; background:#f5b8d8; opacity:.55; z-index:0; }
+.sheet { position:relative; z-index:1; background:var(--page); border-radius:40px; padding:0 clamp(20px,4vw,56px) 40px; box-shadow:0 40px 120px rgba(40,0,60,.45); overflow:hidden; }
+
+nav { display:flex; justify-content:space-between; align-items:center; padding:26px 0; }
+.brand { display:flex; align-items:center; gap:12px; font-weight:800; font-size:18px; }
+.av { width:40px; height:40px; border-radius:50%; background:linear-gradient(135deg,#ff1cb8,#7b2ff7); color:#fff; display:grid; place-items:center; font-weight:800; font-size:14px; position:relative; flex:none; }
+.av.sm { width:26px; height:26px; font-size:10px; }
+.av .ok { position:absolute; right:-3px; bottom:-3px; width:16px; height:16px; border-radius:50%; background:var(--blue); border:2px solid #fff; display:grid; place-items:center; }
+.av .ok::after { content:""; width:5px; height:8px; border:solid #fff; border-width:0 2px 2px 0; transform:rotate(45deg) translate(-1px,-1px); }
+.av.sm .ok { width:12px; height:12px; border-width:1.5px; right:-2px; bottom:-2px; }
+.av.sm .ok::after { width:3px; height:6px; border-width:0 1.5px 1.5px 0; }
+.nav-links { display:flex; gap:28px; align-items:center; font-weight:600; font-size:14px; color:var(--muted); }
+.nav-links a:not(.btn):hover { color:var(--ink); }
+.btn { display:inline-flex; align-items:center; gap:8px; height:44px; padding:0 22px; border-radius:12px; background:var(--navy); color:#fff; font:600 14px/1 "Plus Jakarta Sans", sans-serif; box-shadow:0 6px 16px rgba(37,35,74,.3); transition:transform .2s var(--ease), box-shadow .2s; border:0; cursor:pointer; }
+.btn:hover { transform:translateY(-2px); box-shadow:0 10px 24px rgba(37,35,74,.38); }
+.btn.light { background:var(--chip); color:var(--ink); box-shadow:none; }
+.btn.light:hover { background:#e7e7ef; }
+
+
+section { padding-top:clamp(16px,3vw,40px); }
+.title { font-size:clamp(32px,3.4vw,46px); font-weight:800; letter-spacing:-.035em; }
+.sec-head { display:flex; justify-content:space-between; align-items:end; gap:20px; flex-wrap:wrap; margin-bottom:28px; }
+.sec-head h2 { font-size:clamp(26px,2.6vw,34px); font-weight:800; }
+.sec-head p { color:var(--muted); font-size:14px; font-weight:500; margin-top:4px; }
+.tabs { display:flex; gap:6px; flex-wrap:wrap; }
+.tabs button { font:600 14px/1 "Plus Jakarta Sans", sans-serif; color:var(--muted); background:none; border:0; padding:12px 18px; border-radius:12px; cursor:pointer; transition:background .2s, color .2s; }
+.tabs button:hover { color:var(--ink); background:var(--chip); }
+.tabs button[aria-selected="true"] { background:var(--navy); color:#fff; box-shadow:0 6px 16px rgba(37,35,74,.3); }
+.tabs button span { opacity:.6; margin-left:4px; }
+
+.grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(270px,1fr)); gap:24px; }
+.item { background:var(--card); border:1px solid var(--line); border-radius:20px; padding:12px; box-shadow:var(--shadow); transition:transform .25s var(--ease), box-shadow .25s; display:flex; flex-direction:column; }
+.item:hover { transform:translateY(-6px); box-shadow:0 22px 44px rgba(20,20,60,.14); }
+.item .img { position:relative; border-radius:14px; overflow:hidden; aspect-ratio:4/3; background:#16171d; }
+.item .img img { height:100%; object-fit:cover; object-position:0 0; transition:transform .5s var(--ease); }
+.item:hover .img img { transform:scale(1.05); }
+.item .kind { position:absolute; top:10px; left:10px; background:rgba(20,18,40,.6); color:#fff; font-size:12px; font-weight:600; padding:6px 10px; border-radius:10px; backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px); }
+.item .when { position:absolute; left:10px; bottom:10px; background:#fff; font-size:12px; font-weight:700; padding:6px 10px; border-radius:10px; }
+.item .body { padding:14px 6px 4px; display:flex; flex-direction:column; flex:1; }
+.item .row { display:flex; justify-content:space-between; align-items:center; gap:10px; }
+.item h3 { font-size:17px; font-weight:800; }
+.item .free { color:var(--green); font-size:13px; font-weight:700; white-space:nowrap; }
+.item .sub { color:var(--muted); font-size:13px; font-weight:500; margin-top:2px; }
+.item .desc { font-size:14px; color:#4a4866; margin:12px 0 14px; }
+.item .by { display:flex; align-items:center; gap:8px; font-size:13px; font-weight:600; }
+.item .foot { margin-top:auto; padding-top:14px; border-top:1px solid var(--line); display:flex; justify-content:space-between; align-items:center; gap:10px; }
+.item .foot b { display:block; font-size:15px; }
+.item .foot small { color:var(--muted); font-size:12px; font-weight:500; }
+.item .go { width:40px; height:40px; border-radius:50%; background:var(--chip); display:grid; place-items:center; transition:background .2s, transform .2s var(--ease); }
+.item:hover .go { background:var(--navy); transform:rotate(-45deg); }
+.item .go svg { width:16px; height:16px; stroke:var(--ink); fill:none; stroke-width:2.2; stroke-linecap:round; stroke-linejoin:round; }
+.item:hover .go svg { stroke:#fff; }
+.item.soon { box-shadow:none; background:transparent; border:2px dashed #dcdce6; }
+.item.soon:hover { transform:none; box-shadow:none; }
+.item.soon .img { background:var(--chip); display:grid; place-items:center; font-size:40px; }
+.empty { color:var(--muted); font-size:14px; padding:24px 4px; }
+
+
+footer { display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; padding:36px 0 0; color:var(--muted); font-size:14px; font-weight:500; }
+footer a:hover { color:var(--ink); }
+
+.js .rv { opacity:0; transform:translateY(22px); transition:opacity .7s var(--ease), transform .7s var(--ease); transition-delay:calc(var(--i,0) * 80ms); }
+.js .rv.in { opacity:1; transform:none; }
+@media (max-width:900px) {
+  .nav-links a:not(.btn) { display:none; }
+}
+@media (prefers-reduced-motion:reduce) {
+  html { scroll-behavior:auto; }
+  .js .rv { opacity:1; transform:none; transition:none; }
+  .item, .item .img img, .btn { transition:none; }
+}
+</style>
+</head>
+<body>
+<div class="shell">
+  <div class="sheet">
+    <nav>
+      <a class="brand" href="#"><span class="av">DC<span class="ok"></span></span>Diego Carbone</a>
+      <div class="nav-links"><a class="btn" href="https://github.com/dccarbone">GitHub</a></div>
+    </nav>
+
+    <section id="work">
+      <div class="sec-head">
+        <div><h1 class="title">Catalog</h1><p>Apps, Claude Code mods and skills.</p></div>
+        <div class="tabs" role="tablist" aria-label="Categories" id="tabs"></div>
+      </div>
+      <div class="grid" id="grid"></div>
+    </section>
+
+    <footer><span>© 2026 Diego Carbone</span><span><a href="https://github.com/dccarbone">GitHub</a> · <a href="privacy">Privacy</a></span></footer>
+  </div>
+</div>
+
+<script>
+// To add a project, add one entry here. kind is one of the CATEGORIES keys.
+var CATEGORIES = { app: 'Apps', mod: 'Claude Mods', skill: 'Claude Skills' };
+var PROJECTS = [
+  { kind: 'app', name: 'herdr-ui', sub: 'macOS app · browser', tag: 'v0.3.5', img: 'herdr-ui/overview.png',
+    desc: 'Every herdr agent on one screen: a live overview, a kanban by status, Dock badge and notifications.',
+    href: 'herdr-ui/', cta: 'See the page', note: 'Free download' },
+];
+
+(function () {
+  var tabs = document.getElementById('tabs'), grid = document.getElementById('grid'), cur = 'all';
+  var arrow = '<svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>';
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  function card(p, i) {
+    return '<a class="item rv" style="--i:' + i + '" href="' + esc(p.href) + '">' +
+      '<div class="img"><img src="' + esc(p.img) + '" width="2800" height="1800" alt="' + esc(p.name) + ' screenshot" loading="lazy"><span class="kind">' + esc(CATEGORIES[p.kind]) + '</span><span class="when">' + esc(p.tag) + '</span></div>' +
+      '<div class="body"><div class="row"><h3>' + esc(p.name) + '</h3><span class="free">Free</span></div><p class="sub">' + esc(p.sub) + '</p>' +
+      '<p class="desc">' + esc(p.desc) + '</p><div class="by"><span class="av sm">DC<span class="ok"></span></span>Diego Carbone</div>' +
+      '<div class="foot"><span><b>' + esc(p.cta) + '</b><small>' + esc(p.note) + '</small></span><span class="go">' + arrow + '</span></div></div></a>';
+  }
+  function soon(kind, i) {
+    return '<div class="item soon rv" style="--i:' + i + '"><div class="img">🛠️</div><div class="body"><h3>' + esc(CATEGORIES[kind]) + '</h3><p class="sub">Coming soon</p></div></div>';
+  }
+  function render() {
+    var list = PROJECTS.filter(function (p) { return cur === 'all' || p.kind === cur; });
+    var html = list.map(card).join('');
+    var kinds = cur === 'all' ? Object.keys(CATEGORIES) : [cur];
+    kinds.forEach(function (k) { if (!PROJECTS.some(function (p) { return p.kind === k; })) html += soon(k, list.length); });
+    grid.innerHTML = html;
+    requestAnimationFrame(function () { grid.querySelectorAll('.rv').forEach(function (el) { el.classList.add('in'); }); });
+  }
+  var all = [['all', 'All']].concat(Object.keys(CATEGORIES).map(function (k) { return [k, CATEGORIES[k]]; }));
+  tabs.innerHTML = all.map(function (t) {
+    var n = t[0] === 'all' ? PROJECTS.length : PROJECTS.filter(function (p) { return p.kind === t[0]; }).length;
+    return '<button role="tab" data-k="' + t[0] + '" aria-selected="' + (t[0] === cur) + '">' + t[1] + '<span>' + n + '</span></button>';
+  }).join('');
+  tabs.addEventListener('click', function (e) {
+    var b = e.target.closest('button'); if (!b) return;
+    cur = b.dataset.k;
+    tabs.querySelectorAll('button').forEach(function (x) { x.setAttribute('aria-selected', x === b); });
+    render();
+  });
+  render();
+})();
+</script>
+</body>
+</html>
