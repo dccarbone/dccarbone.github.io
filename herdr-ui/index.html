@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>herdr-ui · a window for your herdr agents</title>
+<meta name="description" content="herdr-ui shows every agent herdr runs, tells you which one needs you, and lets you answer from a browser or a native macOS app.">
+<style>
+:root { --bg: #16171d; --panel: #1f2028; --fg: #e6e6ef; --dim: #8b8da0; --accent: #7aa2f7; --pink: #f7768e; }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--fg); font: 17px/1.6 ui-monospace, "SF Mono", Menlo, monospace; }
+main { max-width: 960px; margin: 0 auto; padding: 72px 24px 96px; }
+h1 { font-size: 44px; line-height: 1.15; margin: 0 0 16px; }
+h1 span { color: var(--accent); }
+p.lead { color: var(--dim); font-size: 19px; max-width: 640px; margin: 0 0 32px; }
+.cta { display: inline-block; background: var(--accent); color: #11121a; font-weight: 700; padding: 14px 24px; border-radius: 8px; text-decoration: none; }
+.cta:hover { filter: brightness(1.1); }
+.sub { color: var(--dim); font-size: 14px; margin: 14px 0 0; }
+img { width: 100%; height: auto; border-radius: 10px; border: 1px solid #2c2e3a; display: block; }
+figure { margin: 56px 0 0; }
+figcaption { color: var(--dim); font-size: 14px; margin-top: 10px; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin: 56px 0 0; }
+.card { background: var(--panel); border-radius: 10px; padding: 20px; }
+.card h3 { margin: 0 0 6px; font-size: 16px; }
+.card p { margin: 0; color: var(--dim); font-size: 15px; }
+.card h3.hot { color: var(--pink); }
+h2 { font-size: 24px; margin: 64px 0 12px; }
+code { background: var(--panel); padding: 2px 6px; border-radius: 4px; font-size: 15px; }
+ol { color: var(--dim); padding-left: 22px; }
+ol li { margin: 6px 0; }
+footer { margin-top: 72px; color: var(--dim); font-size: 14px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>herdr-ui<br><span>see every agent. answer the one that is blocked.</span></h1>
+  <p class="lead">A window for herdr. It lists your spaces and agents, shows which one needs you, and lets you answer it from a browser or a native macOS app.</p>
+  <a class="cta" href="https://pub-1ab8d5b5f9dd43a49ae32ff91a1d4394.r2.dev/herdr-ui/herdr-ui.dmg">Download for macOS (.dmg)</a>
+  <p class="sub">Apple Silicon and Intel · macOS · needs herdr installed</p>
+
+  <figure>
+    <img src="overview.png" alt="herdr-ui overview: a sidebar with spaces and agents, and a grid of live terminals">
+    <figcaption>Overview: every agent at a glance, the blocked one on top. Sample data.</figcaption>
+  </figure>
+
+  <div class="grid">
+    <div class="card"><h3 class="hot">Needs you</h3><p>A blocked agent shows its last lines and the keys that answer it. Answer without opening its terminal.</p></div>
+    <div class="card"><h3>Dock badge</h3><p>The Dock icon counts blocked agents and bounces when one needs you.</p></div>
+    <div class="card"><h3>Notifications</h3><p>A native notification names the space and the agent that blocked or finished.</p></div>
+    <div class="card"><h3>Spaces</h3><p>Collapse a space and all its agents fold with it. Pin an agent to keep it in the overview.</p></div>
+  </div>
+
+  <figure>
+    <img src="kanban.png" alt="herdr-ui kanban: agents in columns by status">
+    <figcaption>Kanban: agents grouped by status or by space.</figcaption>
+  </figure>
+
+  <h2>Install</h2>
+  <ol>
+    <li>Open the .dmg and drag <code>herdr-ui</code> to Applications.</li>
+    <li>The app is not notarized. The first time, right-click it and choose <b>Open</b>. Or run <code>xattr -cr /Applications/herdr-ui.app</code>.</li>
+    <li>Allow notifications in System Settings. The settings dialog in the app has a test button.</li>
+  </ol>
+  <p class="sub">The app tells you in the footer when a newer version is out.</p>
+
+  <footer>herdr-ui is an independent project. Screenshots use sample data.</footer>
+</main>
+</body>
+</html>
