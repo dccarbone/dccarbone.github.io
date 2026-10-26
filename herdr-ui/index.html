@@ -3,67 +3,296 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>herdr-ui · a window for your herdr agents</title>
-<meta name="description" content="herdr-ui shows every agent herdr runs, tells you which one needs you, and lets you answer from a browser or a native macOS app.">
+<title>herdr-ui · every agent, one screen</title>
+<meta name="description" content="herdr-ui: seamless integration with herdr, with a better UI. A live overview of everything that runs, a kanban by status, Dock badge and native notifications on macOS.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add('js')</script>
 <style>
-:root { --bg: #16171d; --panel: #1f2028; --fg: #e6e6ef; --dim: #8b8da0; --accent: #7aa2f7; --pink: #f7768e; }
-* { box-sizing: border-box; }
-body { margin: 0; background: var(--bg); color: var(--fg); font: 17px/1.6 ui-monospace, "SF Mono", Menlo, monospace; }
-main { max-width: 960px; margin: 0 auto; padding: 72px 24px 96px; }
-h1 { font-size: 44px; line-height: 1.15; margin: 0 0 16px; }
-h1 span { color: var(--accent); }
-p.lead { color: var(--dim); font-size: 19px; max-width: 640px; margin: 0 0 32px; }
-.cta { display: inline-block; background: var(--accent); color: #11121a; font-weight: 700; padding: 14px 24px; border-radius: 8px; text-decoration: none; }
-.cta:hover { filter: brightness(1.1); }
-.sub { color: var(--dim); font-size: 14px; margin: 14px 0 0; }
-img { width: 100%; height: auto; border-radius: 10px; border: 1px solid #2c2e3a; display: block; }
-figure { margin: 56px 0 0; }
-figcaption { color: var(--dim); font-size: 14px; margin-top: 10px; }
-.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin: 56px 0 0; }
-.card { background: var(--panel); border-radius: 10px; padding: 20px; }
-.card h3 { margin: 0 0 6px; font-size: 16px; }
-.card p { margin: 0; color: var(--dim); font-size: 15px; }
-.card h3.hot { color: var(--pink); }
-h2 { font-size: 24px; margin: 64px 0 12px; }
-code { background: var(--panel); padding: 2px 6px; border-radius: 4px; font-size: 15px; }
-ol { color: var(--dim); padding-left: 22px; }
-ol li { margin: 6px 0; }
-footer { margin-top: 72px; color: var(--dim); font-size: 14px; }
+:root {
+  --bg:#1b1840; --bg2:#221e52; --card:rgba(56,51,115,.55); --line:rgba(255,255,255,.09);
+  --fg:#ffffff; --body:#b4b1de; --muted:#8a87bd; --accent:#7b72f0; --accent2:#6c63e6;
+  --g1:#8ea2ff; --g2:#b16cff; --g3:#e07bff;
+  --green:#50fa7b; --orange:#ffb86c; --red:#ff5555; --cyan:#8be9fd; --pink:#ff79c6;
+  --ease:cubic-bezier(.2,.7,.1,1);
+}
+* { box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { margin:0; background:var(--bg); color:var(--fg); font:400 16px/1.65 "Plus Jakarta Sans", system-ui, sans-serif; -webkit-font-smoothing:antialiased; overflow-x:hidden; }
+a { color:inherit; text-decoration:none; }
+:focus-visible { outline:2px solid var(--g1); outline-offset:3px; border-radius:6px; }
+img { display:block; width:100%; height:auto; }
+p { margin:0; }
+.wrap { max-width:1280px; margin:0 auto; padding:0 clamp(20px,4vw,48px); }
+.grad { background:linear-gradient(90deg,var(--g1),var(--g2) 55%,var(--g3)); -webkit-background-clip:text; background-clip:text; color:transparent; }
+
+.topbar { position:sticky; top:0; z-index:50; background:rgba(34,30,82,.78); backdrop-filter:blur(14px) saturate(140%); -webkit-backdrop-filter:blur(14px) saturate(140%); border-bottom:1px solid var(--line); }
+nav { display:flex; align-items:center; justify-content:space-between; padding:14px 0; }
+section[id] { scroll-margin-top:84px; }
+.logo { display:flex; align-items:center; gap:12px; font-weight:800; letter-spacing:-.01em; }
+.logo i { width:38px; height:38px; border-radius:10px; background:var(--accent); display:grid; place-items:center; font-style:normal; font-size:18px; box-shadow:0 8px 24px rgba(123,114,240,.45); }
+.logo small { display:block; font-size:10px; font-weight:600; letter-spacing:.14em; color:var(--muted); margin-top:-2px; }
+.links { display:flex; align-items:center; gap:30px; font-size:14px; font-weight:500; color:var(--body); }
+.links a:not(.btn):hover { color:var(--fg); }
+
+.btn { display:inline-flex; align-items:center; gap:8px; height:46px; padding:0 22px; border-radius:10px; font:600 15px/1 "Plus Jakarta Sans", sans-serif; background:linear-gradient(180deg,var(--accent),var(--accent2)); color:#fff; box-shadow:0 10px 30px rgba(123,114,240,.45); transition:transform .2s var(--ease), box-shadow .2s, filter .2s; border:0; cursor:pointer; }
+.btn:hover { transform:translateY(-2px); filter:brightness(1.1); box-shadow:0 16px 40px rgba(123,114,240,.6); }
+.btn.sm { height:38px; padding:0 18px; font-size:13px; }
+.btn.ghost { background:rgba(255,255,255,.08); box-shadow:none; border:1px solid var(--line); color:var(--fg); }
+.btn.ghost:hover { background:rgba(255,255,255,.14); box-shadow:none; }
+
+.hero { position:relative; background:radial-gradient(900px 500px at 10% 0%, rgba(139,92,246,.35), transparent 60%), radial-gradient(700px 500px at 90% 30%, rgba(224,123,255,.18), transparent 60%), linear-gradient(180deg,var(--bg2),var(--bg)); overflow:hidden; }
+.stars { position:absolute; inset:0; background-image:radial-gradient(1.5px 1.5px at 20% 30%,#fff8,transparent), radial-gradient(1px 1px at 70% 20%,#fff6,transparent), radial-gradient(1.5px 1.5px at 40% 70%,#fff5,transparent), radial-gradient(1px 1px at 85% 60%,#fff7,transparent), radial-gradient(1px 1px at 10% 80%,#fff5,transparent), radial-gradient(1.5px 1.5px at 55% 12%,#fff6,transparent); pointer-events:none; }
+.hero-grid { display:grid; grid-template-columns:5fr 7fr; gap:clamp(32px,4vw,64px); align-items:center; padding:clamp(40px,6vw,90px) 0 clamp(80px,9vw,140px); position:relative; z-index:1; }
+.pill { display:inline-flex; align-items:center; gap:8px; padding:6px 14px 6px 8px; border-radius:99px; background:rgba(255,255,255,.07); border:1px solid var(--line); font-size:13px; color:var(--body); margin-bottom:24px; }
+.pill b { background:var(--accent); color:#fff; font-size:11px; padding:3px 8px; border-radius:99px; font-weight:700; }
+h1 { font-size:clamp(38px,4.6vw,62px); line-height:1.08; letter-spacing:-.035em; font-weight:800; margin:0 0 22px; }
+.hero .lead { color:var(--body); font-size:clamp(16px,1.3vw,18px); max-width:46ch; margin-bottom:34px; }
+.actions { display:flex; gap:12px; flex-wrap:wrap; }
+.hero .note { margin-top:18px; font-size:13px; color:var(--muted); }
+
+.frame { position:relative; border-radius:14px; background:#16171d; border:1px solid rgba(255,255,255,.12); box-shadow:0 40px 90px rgba(0,0,0,.55); overflow:hidden; }
+.frame .bar { display:flex; align-items:center; gap:7px; height:34px; padding:0 14px; background:#24253a; }
+.frame .bar i { width:11px; height:11px; border-radius:50%; background:var(--red); }
+.frame .bar i:nth-child(2) { background:var(--orange); } .frame .bar i:nth-child(3) { background:var(--green); }
+.frame .bar span { margin-left:14px; flex:1; max-width:280px; height:20px; border-radius:6px; background:rgba(255,255,255,.06); font-size:11px; color:var(--muted); display:flex; align-items:center; padding-left:10px; }
+.stage { position:relative; perspective:1600px; }
+.stage::before { content:""; position:absolute; inset:-10% -5% -5% 5%; background:radial-gradient(closest-side, rgba(139,92,246,.55), transparent); filter:blur(40px); }
+.tilt { position:relative; z-index:1; transform:rotateY(-14deg) rotateX(6deg) rotateZ(1deg); transform-origin:left center; transition:transform .8s var(--ease); }
+.stage:hover .tilt { transform:rotateY(-6deg) rotateX(3deg); }
+.float { position:absolute; z-index:2; right:-3%; bottom:-12%; width:min(320px,48%); background:rgba(44,40,100,.85); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); border:1px solid rgba(255,255,255,.14); border-radius:16px; padding:14px 16px; box-shadow:0 24px 60px rgba(0,0,0,.45); animation:bob 6s ease-in-out infinite; }
+.notif { display:flex; gap:12px; align-items:flex-start; font-size:13px; line-height:1.45; }
+.notif .ic { position:relative; flex:none; width:38px; height:38px; border-radius:10px; background:var(--accent); display:grid; place-items:center; font-size:18px; }
+.notif .ic em { position:absolute; top:-6px; right:-7px; min-width:19px; height:19px; border-radius:10px; background:#ff3b30; color:#fff; font:700 11px/19px "Plus Jakarta Sans"; font-style:normal; text-align:center; padding:0 5px; }
+.notif b { display:block; font-weight:700; font-size:13px; }
+.notif span { color:var(--body); }
+@keyframes bob { 50% { transform:translateY(-10px); } }
+
+section { padding-top:clamp(90px,10vw,140px); }
+.head { text-align:center; max-width:720px; margin:0 auto clamp(40px,5vw,64px); }
+h2 { font-size:clamp(30px,3.2vw,44px); line-height:1.12; letter-spacing:-.03em; font-weight:800; margin:0 0 16px; }
+.head p { color:var(--body); }
+.card { position:relative; background:var(--card); border:1px solid var(--line); border-radius:24px; padding:clamp(24px,3.5vw,48px); box-shadow:0 30px 60px rgba(0,0,0,.35); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); overflow:hidden; }
+.card::before { content:""; position:absolute; inset:0 0 auto 0; height:1px; background:linear-gradient(90deg,transparent,rgba(255,255,255,.25),transparent); }
+.glow { position:absolute; width:420px; height:420px; border-radius:50%; background:radial-gradient(closest-side, rgba(139,92,246,.35), transparent); filter:blur(30px); pointer-events:none; }
+
+.feature-top { display:grid; grid-template-columns:5fr 7fr; gap:clamp(24px,4vw,64px); align-items:start; margin-bottom:clamp(28px,3vw,44px); position:relative; z-index:1; }
+.icon { width:44px; height:44px; border-radius:12px; background:var(--accent); display:grid; place-items:center; margin-bottom:18px; box-shadow:0 10px 26px rgba(123,114,240,.45); }
+.icon svg { width:22px; height:22px; stroke:#fff; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+.feature-top h2 { margin:0 0 10px; }
+.points { display:grid; grid-template-columns:1fr 1fr; gap:22px 32px; }
+.points div { color:var(--body); font-size:15px; }
+.points b { display:flex; align-items:center; gap:8px; color:var(--fg); font-weight:700; font-size:15px; margin-bottom:4px; }
+.points b::before { content:""; width:8px; height:8px; border-radius:50%; background:var(--c, var(--g1)); box-shadow:0 0 12px var(--c, var(--g1)); }
+.card .frame { position:relative; z-index:1; }
+.tabs { display:inline-flex; gap:6px; padding:5px; background:rgba(0,0,0,.25); border:1px solid var(--line); border-radius:12px; margin-bottom:18px; position:relative; z-index:1; }
+.tabs button { font:600 13px/1 "Plus Jakarta Sans", sans-serif; color:var(--body); background:none; border:0; padding:10px 16px; border-radius:8px; cursor:pointer; transition:background .2s, color .2s; }
+.tabs button:hover { color:var(--fg); }
+.tabs button[aria-selected="true"] { background:var(--accent); color:#fff; box-shadow:0 6px 18px rgba(123,114,240,.45); }
+.swap { transition:opacity .2s; }
+
+.split { display:grid; grid-template-columns:1fr 1fr; gap:clamp(28px,4vw,64px); align-items:center; }
+.split p.body { color:var(--body); margin-bottom:22px; }
+.list { display:grid; gap:14px; margin:0 0 28px; padding:0; list-style:none; }
+.list li { display:flex; gap:12px; color:var(--body); font-size:15px; }
+.list li::before { content:"✓"; flex:none; width:22px; height:22px; border-radius:50%; background:rgba(80,250,123,.15); color:var(--green); font-size:12px; font-weight:800; display:grid; place-items:center; margin-top:1px; }
+.list b { color:var(--fg); font-weight:600; }
+.mac { position:relative; padding:28px; border-radius:20px; background:linear-gradient(160deg,#3a3480,#241f5a); border:1px solid var(--line); overflow:hidden; }
+.mac .stack { display:grid; gap:14px; position:relative; z-index:1; }
+.mac .notif-card { background:rgba(30,27,75,.75); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); border:1px solid rgba(255,255,255,.12); border-radius:14px; padding:14px 16px; box-shadow:0 14px 40px rgba(0,0,0,.35); }
+.mac .notif-card:nth-child(2) { margin-left:8%; }
+.mac .notif-card .when { float:right; color:var(--muted); font-size:12px; margin-left:8px; }
+.dockbar { position:relative; z-index:1; margin:30px auto 0; display:flex; justify-content:center; gap:14px; padding:12px 18px; background:rgba(255,255,255,.08); border:1px solid var(--line); border-radius:18px; width:max-content; }
+.dockbar i { position:relative; width:46px; height:46px; border-radius:12px; background:rgba(255,255,255,.12); display:grid; place-items:center; font-style:normal; font-size:20px; }
+.dockbar i.me { background:var(--accent); animation:bounce 2.4s var(--ease) infinite; }
+.dockbar i.me em { position:absolute; top:-7px; right:-8px; min-width:21px; height:21px; border-radius:11px; background:#ff3b30; color:#fff; font:700 12px/21px "Plus Jakarta Sans"; font-style:normal; text-align:center; padding:0 5px; }
+@keyframes bounce { 0%,60%,100% { transform:none; } 70% { transform:translateY(-14px); } 80% { transform:none; } 88% { transform:translateY(-6px); } }
+
+.benefits { display:grid; grid-template-columns:repeat(4,1fr); gap:28px; }
+.benefits .icon { margin-bottom:14px; }
+.benefits b { display:block; font-weight:700; margin-bottom:6px; }
+.benefits p { color:var(--body); font-size:14px; }
+
+.steps { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+.steps .card { padding:28px; }
+.steps .n { width:34px; height:34px; border-radius:10px; background:rgba(123,114,240,.2); color:var(--g1); font-weight:800; display:grid; place-items:center; margin-bottom:16px; }
+.steps b { display:block; font-weight:700; font-size:17px; margin-bottom:8px; }
+.steps p { color:var(--body); font-size:15px; }
+code { font:500 13px/1.6 ui-monospace, Menlo, monospace; background:rgba(0,0,0,.3); padding:3px 7px; border-radius:6px; color:var(--cyan); }
+
+.cta { text-align:center; padding:clamp(48px,6vw,80px) 24px; background:radial-gradient(600px 300px at 50% 0%, rgba(224,123,255,.3), transparent 70%), linear-gradient(160deg,#3a3480,#2a2566); }
+.cta h2 { font-size:clamp(32px,4vw,52px); }
+.cta p { color:var(--body); margin-bottom:30px; }
+.cta .actions { justify-content:center; }
+footer { display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; padding:60px 0 36px; color:var(--muted); font-size:14px; }
+footer a:hover { color:var(--fg); }
+
+.js .rv { opacity:0; transform:translateY(26px); transition:opacity .8s var(--ease), transform .8s var(--ease); transition-delay:calc(var(--i,0) * 90ms); }
+.js .rv.in { opacity:1; transform:none; }
+
+@media (max-width:960px) {
+  .hero-grid, .feature-top, .split { grid-template-columns:1fr; }
+  .tilt { transform:none; }
+  .float { position:relative; right:auto; bottom:auto; width:100%; margin-top:16px; }
+  .benefits { grid-template-columns:1fr 1fr; }
+  .steps { grid-template-columns:1fr; }
+  .links a:not(.btn) { display:none; }
+}
+@media (max-width:560px) { .points, .benefits { grid-template-columns:1fr; } }
+@media (prefers-reduced-motion:reduce) {
+  html { scroll-behavior:auto; }
+  .js .rv { opacity:1; transform:none; transition:none; }
+  .float, .dockbar i.me { animation:none; }
+  .tilt, .btn { transition:none; }
+}
 </style>
 </head>
 <body>
-<main>
-  <h1>herdr-ui<br><span>see every agent. answer the one that is blocked.</span></h1>
-  <p class="lead">A window for herdr. It lists your spaces and agents, shows which one needs you, and lets you answer it from a browser or a native macOS app.</p>
-  <a class="cta" href="https://pub-1ab8d5b5f9dd43a49ae32ff91a1d4394.r2.dev/herdr-ui/herdr-ui.dmg">Download for macOS (.dmg)</a>
-  <p class="sub">Apple Silicon and Intel · macOS · needs herdr installed</p>
 
-  <figure>
-    <img src="overview.png" alt="herdr-ui overview: a sidebar with spaces and agents, and a grid of live terminals">
-    <figcaption>Overview: every agent at a glance, the blocked one on top. Sample data.</figcaption>
-  </figure>
+<div class="topbar"><div class="wrap">
+<nav>
+      <a class="logo" href="#"><i>🐑</i><span>herdr-ui<small>FOR HERDR</small></span></a>
+      <div class="links"><a href="#overview">Overview</a><a href="#kanban">Kanban</a><a href="#native">macOS app</a><a href="#install">Install</a><a class="btn sm" href="https://pub-1ab8d5b5f9dd43a49ae32ff91a1d4394.r2.dev/herdr-ui/herdr-ui.dmg">Download</a></div>
+    </nav>
+</div></div>
 
-  <div class="grid">
-    <div class="card"><h3 class="hot">Needs you</h3><p>A blocked agent shows its last lines and the keys that answer it. Answer without opening its terminal.</p></div>
-    <div class="card"><h3>Dock badge</h3><p>The Dock icon counts blocked agents and bounces when one needs you.</p></div>
-    <div class="card"><h3>Notifications</h3><p>A native notification names the space and the agent that blocked or finished.</p></div>
-    <div class="card"><h3>Spaces</h3><p>Collapse a space and all its agents fold with it. Pin an agent to keep it in the overview.</p></div>
+<header class="hero">
+  <div class="stars"></div>
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <span class="pill"><b>v0.3.5</b> Signed and notarized macOS app</span>
+        <h1>Every herdr agent, <span class="grad">one screen.</span></h1>
+        <p class="lead">Seamless integration with herdr, but with a better UI. A live overview of everything that runs, and a kanban that sorts it all by status.</p>
+        <div class="actions">
+          <a class="btn" href="https://pub-1ab8d5b5f9dd43a49ae32ff91a1d4394.r2.dev/herdr-ui/herdr-ui.dmg">Download for macOS</a>
+          <a class="btn ghost" href="#overview">See how it works</a>
+        </div>
+        <p class="note">Free · Apple Silicon and Intel · needs herdr installed</p>
+      </div>
+      <div class="stage">
+        <div class="tilt">
+          <div class="frame"><div class="bar"><i></i><i></i><i></i><span>herdr-ui · Overview</span></div><img src="overview.png" width="2800" height="1800" alt="herdr-ui overview: a sidebar of spaces and agents beside a grid of live terminals"></div>
+        </div>
+        <div class="float notif"><div class="ic">🐑<em>1</em></div><div><b>Troubleshooting · checkout 5xx spike</b><span>claude needs you</span></div></div>
+      </div>
+    </div>
   </div>
+</header>
 
-  <figure>
-    <img src="kanban.png" alt="herdr-ui kanban: agents in columns by status">
-    <figcaption>Kanban: agents grouped by status or by space.</figcaption>
-  </figure>
+<main class="wrap">
+  <section id="overview">
+    <div class="card rv">
+      <div class="glow" style="top:-160px;right:-120px"></div>
+      <div class="feature-top">
+        <div>
+          <div class="icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></div>
+          <h2>Live <span class="grad">Overview</span></h2>
+          <p style="color:var(--body)">Everything that runs, in one place. Up to six live terminals you can type into.</p>
+        </div>
+        <div class="points">
+          <div style="--c:var(--pink)"><b>It picks for you</b>Blocked agents first, then working ones and the ones that finished in the last five minutes. Idle agents leave.</div>
+          <div style="--c:var(--cyan)"><b>Pin what you watch</b>A pinned agent stays in the overview, whatever its status, until you unpin it. Pins come first.</div>
+          <div style="--c:var(--green)"><b>Cells stay put</b>A status change never moves a cell, so you never click the wrong terminal.</div>
+          <div style="--c:var(--orange)"><b>Spaces in the sidebar</b>Jira, PRs, Troubleshooting. Fold a space and its agents fold with it.</div>
+        </div>
+      </div>
+      <div class="frame"><div class="bar"><i></i><i></i><i></i><span>herdr-ui · Overview</span></div><img src="overview.png" width="2800" height="1800" alt="The overview grid with a blocked agent, two working agents and one that just finished" loading="lazy"></div>
+    </div>
+  </section>
 
-  <h2>Install</h2>
-  <ol>
-    <li>Open the .dmg and drag <code>herdr-ui</code> to Applications.</li>
-    <li>The app is not notarized. The first time, right-click it and choose <b>Open</b>. Or run <code>xattr -cr /Applications/herdr-ui.app</code>.</li>
-    <li>Allow notifications in System Settings. The settings dialog in the app has a test button.</li>
-  </ol>
-  <p class="sub">The app tells you in the footer when a newer version is out.</p>
+  <section id="kanban">
+    <div class="card rv">
+      <div class="glow" style="top:-160px;left:-140px"></div>
+      <div class="feature-top">
+        <div>
+          <div class="icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="5" height="18" rx="1.5"/><rect x="10" y="3" width="5" height="12" rx="1.5"/><rect x="17" y="3" width="4" height="15" rx="1.5"/></svg></div>
+          <h2>Kanban by <span class="grad">status</span></h2>
+          <p style="color:var(--body)">Every agent at once, sorted by what it is doing. Or one column per space.</p>
+        </div>
+        <div class="points">
+          <div style="--c:var(--pink)"><b>Needs you</b>Blocked cards show the question and the keys that answer it.</div>
+          <div style="--c:var(--orange)"><b>Running</b>Working agents, with a live hint of activity.</div>
+          <div style="--c:var(--green)"><b>Done</b>Agents that finished their task.</div>
+          <div style="--c:var(--muted)"><b>Idle</b>Waiting for the next prompt. Click any card to open its terminal.</div>
+        </div>
+      </div>
+      <div class="tabs" role="tablist" aria-label="Kanban grouping">
+        <button role="tab" aria-selected="true" data-src="kanban.png" data-alt="Kanban by status with four columns">By status</button>
+        <button role="tab" aria-selected="false" data-src="kanban-space.png" data-alt="Kanban by space with one column per space">By space</button>
+      </div>
+      <div class="frame"><div class="bar"><i></i><i></i><i></i><span>herdr-ui · Kanban</span></div><img class="swap" id="kimg" src="kanban.png" width="2800" height="1800" alt="Kanban by status with four columns" loading="lazy"></div>
+    </div>
+  </section>
 
-  <footer>herdr-ui is an independent project. Screenshots use sample data.</footer>
+  <section id="native">
+    <div class="split">
+      <div class="rv">
+        <div class="icon"><svg viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg></div>
+        <h2>Know without <span class="grad">looking</span></h2>
+        <p class="body">The macOS app tells you when an agent needs you, even with the window in the background.</p>
+        <ul class="list">
+          <li><span><b>Native notifications.</b> Each one names the space and the agent that blocked or finished.</span></li>
+          <li><span><b>Dock badge.</b> The icon counts the blocked agents. The number drops as you answer them.</span></li>
+          <li><span><b>Dock bounce.</b> The icon bounces when an agent blocks.</span></li>
+          <li><span><b>Your call.</b> Turn off the finished notifications in settings. A test button checks it all works.</span></li>
+        </ul>
+      </div>
+      <div class="mac rv" style="--i:1">
+        <div class="glow" style="bottom:-200px;right:-150px"></div>
+        <div class="stack">
+          <div class="notif-card notif"><div class="ic">🐑</div><div><span class="when">now</span><b>Troubleshooting · checkout 5xx spike</b><span>claude needs you</span></div></div>
+          <div class="notif-card notif"><div class="ic">🐑</div><div><span class="when">2m ago</span><b>Troubleshooting · cache stampede</b><span>codex finished</span></div></div>
+        </div>
+        <div class="dockbar" aria-hidden="true"><i>📁</i><i>🌐</i><i class="me">🐑<em>1</em></i><i>⚙️</i></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="head rv"><h2>Seamless with herdr, <span class="grad">better to look at</span></h2><p>herdr-ui reads your herdr session as it is. Nothing to configure.</p></div>
+    <div class="card benefits">
+      <div class="rv"><div class="icon"><svg viewBox="0 0 24 24"><path d="M4 17l6-6-6-6"/><path d="M12 19h8"/></svg></div><b>Same session</b><p>Talks to herdr through its CLI and socket. Your spaces, tabs and agents show up as they are.</p></div>
+      <div class="rv" style="--i:1"><div class="icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M8 21h8"/></svg></div><b>Browser or app</b><p>One Go binary serves the UI. Use it in the browser, or as the macOS app.</p></div>
+      <div class="rv" style="--i:2"><div class="icon"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></div><b>Local only</b><p>It listens on 127.0.0.1. Nothing leaves your machine.</p></div>
+      <div class="rv" style="--i:3"><div class="icon"><svg viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-3-6.7L21 8"/><path d="M21 3v5h-5"/></svg></div><b>Update notice</b><p>The app footer tells you when a newer version is out.</p></div>
+    </div>
+  </section>
+
+  <section id="install">
+    <div class="head rv"><h2>Install in <span class="grad">three steps</span></h2></div>
+    <div class="steps">
+      <div class="card rv"><div class="n">1</div><b>Drag to Applications</b><p>Open the .dmg and drag herdr-ui to Applications. It runs on Apple Silicon and Intel.</p></div>
+      <div class="card rv" style="--i:1"><div class="n">2</div><b>Open it</b><p>Double-click herdr-ui in Applications. The app is signed and notarized by Apple, so it opens like any other app.</p></div>
+      <div class="card rv" style="--i:2"><div class="n">3</div><b>Allow notifications</b><p>Turn them on in System Settings, so the badge and the alerts work. Settings in the app has a test button.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="card cta rv">
+      <h2>See every agent <span class="grad">at a glance</span></h2>
+      <p>Download herdr-ui and open it next to herdr. All screenshots on this page use sample data.</p>
+      <div class="actions"><a class="btn" href="https://pub-1ab8d5b5f9dd43a49ae32ff91a1d4394.r2.dev/herdr-ui/herdr-ui.dmg">Download for macOS (.dmg)</a><a class="btn ghost" href="#overview">Back to the overview</a></div>
+    </div>
+  </section>
+
+  <footer><span>herdr-ui · an app for herdr · by <a href="../">Diego Carbone</a></span><span>2026 · <a href="../privacy">Privacy</a></span></footer>
 </main>
+
+<script>
+(function () {
+  var io = 'IntersectionObserver' in window ? new IntersectionObserver(function (es) {
+    es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.1 }) : null;
+  document.querySelectorAll('.rv').forEach(function (el) { io ? io.observe(el) : el.classList.add('in'); });
+  var img = document.getElementById('kimg'), tabs = document.querySelectorAll('.tabs button');
+  tabs.forEach(function (b) { b.addEventListener('click', function () {
+    tabs.forEach(function (x) { x.setAttribute('aria-selected', x === b); });
+    img.style.opacity = 0;
+    setTimeout(function () { img.src = b.dataset.src; img.alt = b.dataset.alt; img.style.opacity = 1; }, 150);
+  }); });
+})();
+</script>
 </body>
 </html>
