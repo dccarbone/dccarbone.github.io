@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>herdr-ui · every agent, one screen</title>
 <meta name="description" content="herdr-ui: seamless integration with herdr, with a better UI. A live overview of everything that runs, a kanban by status, ⌘K to find a session or start a chat in any repo, Dock badge and native notifications on macOS.">
+<link rel="icon" href="icon.svg">
+<meta property="og:image" content="https://dccarbone.github.io/herdr-ui/social-preview.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -31,7 +33,7 @@ p { margin:0; }
 nav { display:flex; align-items:center; justify-content:space-between; padding:14px 0; }
 section[id] { scroll-margin-top:84px; }
 .logo { display:flex; align-items:center; gap:12px; font-weight:800; letter-spacing:-.01em; }
-.logo i { width:38px; height:38px; border-radius:10px; background:var(--accent); display:grid; place-items:center; font-style:normal; font-size:18px; box-shadow:0 8px 24px rgba(123,114,240,.45); }
+.logo img { display:block; width:46px; height:46px; margin:-4px; }
 .logo small { display:block; font-size:10px; font-weight:600; letter-spacing:.14em; color:var(--muted); margin-top:-2px; }
 .links { display:flex; align-items:center; gap:30px; font-size:14px; font-weight:500; color:var(--body); }
 .links a:not(.btn):hover { color:var(--fg); }
@@ -161,7 +163,7 @@ footer a:hover { color:var(--fg); }
 
 <div class="topbar"><div class="wrap">
 <nav>
-      <a class="logo" href="#"><i>🐑</i><span>herdr-ui<small>FOR HERDR</small></span></a>
+      <a class="logo" href="#"><img src="icon.svg" width="46" height="46" alt=""><span>herdr-ui<small>FOR HERDR</small></span></a>
       <div class="links"><a href="#overview">Overview</a><a href="#kanban">Kanban</a><a href="#palette">⌘K</a><a href="#assistant">Assistant</a><a href="#native">macOS app</a><a href="#install">Install</a><a class="btn sm" href="https://pub-1ab8d5b5f9dd43a49ae32ff91a1d4394.r2.dev/herdr-ui/herdr-ui.dmg">Download</a></div>
     </nav>
 </div></div>
