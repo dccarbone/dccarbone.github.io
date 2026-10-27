@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>herdr-ui · every agent, one screen</title>
-<meta name="description" content="herdr-ui: seamless integration with herdr, with a better UI. A live overview of everything that runs, a kanban by status, Dock badge and native notifications on macOS.">
+<meta name="description" content="herdr-ui: seamless integration with herdr, with a better UI. A live overview of everything that runs, a kanban by status, ⌘K to find a session or start a chat in any repo, Dock badge and native notifications on macOS.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -153,7 +153,7 @@ footer a:hover { color:var(--fg); }
 <div class="topbar"><div class="wrap">
 <nav>
       <a class="logo" href="#"><i>🐑</i><span>herdr-ui<small>FOR HERDR</small></span></a>
-      <div class="links"><a href="#overview">Overview</a><a href="#kanban">Kanban</a><a href="#native">macOS app</a><a href="#install">Install</a><a class="btn sm" href="https://pub-1ab8d5b5f9dd43a49ae32ff91a1d4394.r2.dev/herdr-ui/herdr-ui.dmg">Download</a></div>
+      <div class="links"><a href="#overview">Overview</a><a href="#kanban">Kanban</a><a href="#palette">⌘K</a><a href="#native">macOS app</a><a href="#install">Install</a><a class="btn sm" href="https://pub-1ab8d5b5f9dd43a49ae32ff91a1d4394.r2.dev/herdr-ui/herdr-ui.dmg">Download</a></div>
     </nav>
 </div></div>
 
@@ -226,6 +226,26 @@ footer a:hover { color:var(--fg); }
     </div>
   </section>
 
+  <section id="palette">
+    <div class="card rv">
+      <div class="glow" style="top:-160px;right:-120px"></div>
+      <div class="feature-top">
+        <div>
+          <div class="icon"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg></div>
+          <h2>Find anything with <span class="grad">⌘K</span></h2>
+          <p style="color:var(--body)">One search for every session and every repo. Type a few letters, press Enter.</p>
+        </div>
+        <div class="points">
+          <div style="--c:var(--pink)"><b>Jump to a session</b>Search by space, tab, agent or folder. Enter opens the terminal, ready to type.</div>
+          <div style="--c:var(--cyan)"><b>Start a new chat</b>Pick a folder and herdr-ui opens a tab there with your agent running. ⌘Enter always starts a fresh one.</div>
+          <div style="--c:var(--green)"><b>No duplicates</b>If an agent already works in that folder, Enter takes you to it instead.</div>
+          <div style="--c:var(--orange)"><b>Your folders</b>Point it at <code>~/repos</code>, a chats folder, anything. Pick Claude, Codex, Cursor or another agent in Settings.</div>
+        </div>
+      </div>
+      <div class="frame"><div class="bar"><i></i><i></i><i></i><span>herdr-ui · ⌘K</span></div><img src="palette.png" width="2800" height="1800" alt="The ⌘K palette over the overview, listing matching sessions and folders for a new chat" loading="lazy"></div>
+    </div>
+  </section>
+
   <section id="native">
     <div class="split">
       <div class="rv">
@@ -251,7 +271,7 @@ footer a:hover { color:var(--fg); }
   </section>
 
   <section>
-    <div class="head rv"><h2>Seamless with herdr, <span class="grad">better to look at</span></h2><p>herdr-ui reads your herdr session as it is. Nothing to configure.</p></div>
+    <div class="head rv"><h2>Seamless with herdr, <span class="grad">better to look at</span></h2><p>herdr-ui reads your herdr session as it is. Nothing to configure, unless you want ⌘K to look in other folders.</p></div>
     <div class="card benefits">
       <div class="rv"><div class="icon"><svg viewBox="0 0 24 24"><path d="M4 17l6-6-6-6"/><path d="M12 19h8"/></svg></div><b>Same session</b><p>Talks to herdr through its CLI and socket. Your spaces, tabs and agents show up as they are.</p></div>
       <div class="rv" style="--i:1"><div class="icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M8 21h8"/></svg></div><b>Browser or app</b><p>One Go binary serves the UI. Use it in the browser, or as the macOS app.</p></div>
