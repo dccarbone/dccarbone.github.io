@@ -200,15 +200,15 @@ footer a:hover { color:var(--fg); }
         <div>
           <div class="icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></div>
           <h2>Live <span class="grad">Overview</span></h2>
-          <p style="color:var(--body)">Everything that runs, in one place. Two live terminals side by side, the rest a page turn away.</p>
+          <p style="color:var(--body)">Everything that runs, in one place. Up to four live terminals at once, the rest a page turn away.</p>
         </div>
         <div class="points">
           <div style="--c:var(--pink)"><b>It picks for you</b>Blocked agents first, then working ones and the ones that finished in the last five minutes. Idle agents leave.</div>
           <div style="--c:var(--cyan)"><b>Pin or hide</b>A pinned agent stays in the overview, whatever its status, and comes first. A hidden one stays out until it blocks; <code>N hidden</code> brings it back.</div>
           <div style="--c:var(--green)"><b>Cells stay put</b>A status change never moves a cell, so you never click the wrong terminal.</div>
-          <div style="--c:var(--orange)"><b>Spaces in the sidebar</b>Jira, PRs, Troubleshooting. Each space starts folded, with a badge of its agent count. One line per agent: its tab, the time in its status, and a soft Claude, Codex or Cursor mark behind it.</div>
-          <div style="--c:var(--pink)"><b>Pages, not clutter</b>Two terminals at a time. <code>&lt;&lt;</code> / <code>&gt;&gt;</code> or ⇧⌘[ / ⇧⌘] slide to the next ones.</div>
-          <div style="--c:var(--cyan)"><b>Keyboard first</b>⌘T new tab, ⌘N new space, ⌘D split, ⌘W close, ⌘R reload. ⌘/ lists them all.</div>
+          <div style="--c:var(--orange)"><b>Spaces in the sidebar</b>Jira, PRs, Troubleshooting, each with a badge of its agent count. One line per agent: its tab, the time in its status, and a soft Claude, Codex or Cursor mark behind it. Drag spaces and tabs to put them in your order.</div>
+          <div style="--c:var(--pink)"><b>Pages, not clutter</b>One to four terminals at a time, two by two for four: you pick at first launch or in Settings. <code>&lt;&lt;</code> / <code>&gt;&gt;</code> or ⇧⌘[ / ⇧⌘] slide to the next ones.</div>
+          <div style="--c:var(--cyan)"><b>Keyboard first</b>⌘T new tab, ⌘N new space, ⌘D split, ⌘W close, ⌘R reload. ⌘/ lists them all. In a tab, each pane header zooms, renames its agent or closes it, and <code>layouts</code> saves the tab's splits to open again later.</div>
         </div>
       </div>
       <div class="frame"><div class="bar"><i></i><i></i><i></i><span>herdr-ui · Overview</span></div><img src="overview.png" width="2800" height="1800" alt="The overview: a blocked agent and a working one side by side, and a pager to the next two" loading="lazy"></div>
@@ -315,7 +315,7 @@ footer a:hover { color:var(--fg); }
       <div class="rv"><div class="icon"><svg viewBox="0 0 24 24"><path d="M4 17l6-6-6-6"/><path d="M12 19h8"/></svg></div><b>Same session</b><p>Talks to herdr through its CLI and socket. Your spaces, tabs and agents show up as they are.</p></div>
       <div class="rv" style="--i:1"><div class="icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M8 21h8"/></svg></div><b>Browser or app</b><p>One Go binary serves the UI. Use it in the browser, or as the macOS app.</p></div>
       <div class="rv" style="--i:2"><div class="icon"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></div><b>Local only</b><p>It listens on 127.0.0.1. Your sessions, folders and chats never leave your machine. It sends one anonymous ping a day (version, a random install id) to count active installs; feature stats are opt-in.</p></div>
-      <div class="rv" style="--i:3"><div class="icon"><svg viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-3-6.7L21 8"/><path d="M21 3v5h-5"/></svg></div><b>One-click updates</b><p>A popup says when a new version is out. Update installs it and shows each step; What's new lists the changes.</p></div>
+      <div class="rv" style="--i:3"><div class="icon"><svg viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-3-6.7L21 8"/><path d="M21 3v5h-5"/></svg></div><b>One-click updates, herdr too</b><p>A popup says when a new herdr-ui is out; Update installs it and What's new lists the changes. Settings › herdr updates herdr itself and restarts its server without closing your agents; Integrations and Plugins keep the agent hooks and herdr plugins in shape.</p></div>
     </div>
   </section>
 
