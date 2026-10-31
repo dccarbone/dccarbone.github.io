@@ -211,7 +211,7 @@ footer a:hover { color:var(--fg); }
           <div style="--c:var(--green)"><b>Cells stay put</b>A status change never moves a cell, so you never click the wrong terminal.</div>
           <div style="--c:var(--orange)"><b>Spaces in the sidebar</b>Jira, PRs, Troubleshooting, each with a badge of its agent count. One line per agent: its tab, the time in its status, and a soft Claude, Codex or Cursor mark behind it. Drag spaces and tabs to put them in your order. Profiles split them, Work and Personal say, each with its own ⌘K folders; All shows every space, and herdr stays one herdr.</div>
           <div style="--c:var(--pink)"><b>Pages, not clutter</b>One to four terminals at a time, two by two for four: you pick at first launch or in Settings. <code>&lt;&lt;</code> / <code>&gt;&gt;</code> or ⇧⌘[ / ⇧⌘] slide to the next ones.</div>
-          <div style="--c:var(--green)"><b>Limits under each Claude pane</b>A footer reads the pane's transcript: context use, model and effort, version and how warm the prompt cache is. A second line shows the limits of the account that pane uses, 5h, 7d, 7d per model and $ spend, each with a bar, the time gone in the window and when it resets. Behind a per-pane proxy, a Usage URL in Settings gives each pane its own account.</div>
+          <div style="--c:var(--green)"><b>Limits under each Claude pane</b>A footer reads the pane's transcript: context use, model and effort, version, how warm the prompt cache is and the tokens the last turn read from and wrote to it. A second line shows the limits of the account that pane uses, 5h, 7d, 7d per model and $ spend, each with a bar, the time gone in the window and when it resets. Behind a per-pane proxy, a Usage URL in Settings gives each pane its own account.</div>
           <div style="--c:var(--orange)"><b>Idle Claude sessions sleep</b>A Claude session idle for an hour holds about 500 MB. herdr-ui closes it, keeps its session id and greys it out in the sidebar; Resume in its tab reopens the same conversation. The pause button in a pane header does it now.</div>
           <div style="--c:var(--cyan)"><b>Keyboard first</b>⌘T new tab, ⌘N new space, ⌘D split, ⌘W close, ⌘R reload. ⌘/ lists them all. In a tab, each pane header zooms, renames its agent or closes it, and <code>layouts</code> saves the tab's splits to open again later.</div>
         </div>
@@ -251,7 +251,7 @@ footer a:hover { color:var(--fg); }
         <div>
           <div class="icon"><svg viewBox="0 0 24 24"><circle cx="6" cy="6" r="2.5"/><circle cx="6" cy="18" r="2.5"/><circle cx="18" cy="18" r="2.5"/><path d="M6 8.5v7M18 15.5V9a3 3 0 0 0-3-3h-4M13 4l-2 2 2 2"/></svg></div>
           <h2>Pull requests, <span class="grad">tied to agents</span></h2>
-          <p style="color:var(--body)">Your PRs and the reviews asked of you or your team, next to the agents working on them. It reads GitHub through the gh CLI: no token to paste.</p>
+          <p style="color:var(--body)">Your PRs and the reviews asked of you or your team, next to the agents working on them. It reads GitHub through the gh CLI, and Sign in with GitHub sets that up from the app: it installs gh when it is missing and opens GitHub to authorize it. No terminal, no token to paste.</p>
         </div>
         <div class="points">
           <div style="--c:var(--pink)"><b>Your move</b>CI failed, changes requested, a review waiting: those come first.</div>
