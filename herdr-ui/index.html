@@ -167,7 +167,7 @@ footer a:hover { color:var(--fg); }
 <div class="topbar"><div class="wrap">
 <nav>
       <a class="logo" href="#"><img src="icon.svg" width="46" height="46" alt=""><span>herdr-ui<small>FOR HERDR</small></span></a>
-      <div class="links"><a href="#overview">Overview</a><a href="#kanban">Kanban</a><a href="#palette">⌘K</a><a href="#assistant">Assistant</a><a href="#native">macOS app</a><a href="#install">Install</a><a class="btn sm bmc" href="https://buymeacoffee.com/dccarbone">☕<span class="lbl"> Buy me a coffee</span></a><a class="btn sm kofi" href="https://ko-fi.com/dccarbone">☕<span class="lbl"> Ko-fi</span></a><a class="btn sm" href="https://pub-1ab8d5b5f9dd43a49ae32ff91a1d4394.r2.dev/herdr-ui/herdr-ui.dmg">Download</a></div>
+      <div class="links"><a href="#overview">Overview</a><a href="#kanban">Kanban</a><a href="#prs">Pull requests</a><a href="#palette">⌘K</a><a href="#assistant">Assistant</a><a href="#native">macOS app</a><a href="#install">Install</a><a class="btn sm bmc" href="https://buymeacoffee.com/dccarbone">☕<span class="lbl"> Buy me a coffee</span></a><a class="btn sm kofi" href="https://ko-fi.com/dccarbone">☕<span class="lbl"> Ko-fi</span></a><a class="btn sm" href="https://pub-1ab8d5b5f9dd43a49ae32ff91a1d4394.r2.dev/herdr-ui/herdr-ui.dmg">Download</a></div>
     </nav>
 </div></div>
 
@@ -241,6 +241,30 @@ footer a:hover { color:var(--fg); }
         <button role="tab" aria-selected="false" data-src="kanban-space.png" data-alt="Kanban by space with one column per space">By space</button>
       </div>
       <div class="frame"><div class="bar"><i></i><i></i><i></i><span>herdr-ui · Kanban</span></div><img class="swap" id="kimg" src="kanban.png" width="2800" height="1800" alt="Kanban by status with four columns" loading="lazy"></div>
+    </div>
+  </section>
+
+  <section id="prs">
+    <div class="card rv">
+      <div class="glow" style="top:-160px;right:-140px"></div>
+      <div class="feature-top">
+        <div>
+          <div class="icon"><svg viewBox="0 0 24 24"><circle cx="6" cy="6" r="2.5"/><circle cx="6" cy="18" r="2.5"/><circle cx="18" cy="18" r="2.5"/><path d="M6 8.5v7M18 15.5V9a3 3 0 0 0-3-3h-4M13 4l-2 2 2 2"/></svg></div>
+          <h2>Pull requests, <span class="grad">tied to agents</span></h2>
+          <p style="color:var(--body)">Your PRs and the reviews asked of you or your team, next to the agents working on them. It reads GitHub through the gh CLI: no token to paste.</p>
+        </div>
+        <div class="points">
+          <div style="--c:var(--pink)"><b>Your move</b>CI failed, changes requested, a review waiting: those come first.</div>
+          <div style="--c:var(--orange)"><b>Linked agents</b>The agent on the PR's branch, or the chat whose tab names the same task (ABC-123). Send it the CI failure in one click.</div>
+          <div style="--c:var(--green)"><b>Act here</b>Merge, auto-merge, update the branch, approve or request changes, without leaving the window.</div>
+          <div style="--c:var(--muted)"><b>Notified</b>CI red, review asked, PR approved: a notification and a sound.</div>
+        </div>
+      </div>
+      <div class="tabs" role="tablist" aria-label="Pull request grouping">
+        <button role="tab" aria-selected="true" data-src="prs.png" data-alt="Pull requests by date, with the detail of a PR whose CI failed">By date</button>
+        <button role="tab" aria-selected="false" data-src="prs-task.png" data-alt="Pull requests grouped by task">By task</button>
+      </div>
+      <div class="frame"><div class="bar"><i></i><i></i><i></i><span>herdr-ui · Pull requests</span></div><img class="swap" src="prs.png" width="2800" height="1800" alt="Pull requests by date, with the detail of a PR whose CI failed" loading="lazy"></div>
     </div>
   </section>
 
@@ -350,12 +374,15 @@ footer a:hover { color:var(--fg); }
     es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
   }, { threshold: 0.1 }) : null;
   document.querySelectorAll('.rv').forEach(function (el) { io ? io.observe(el) : el.classList.add('in'); });
-  var img = document.getElementById('kimg'), tabs = document.querySelectorAll('.tabs button');
-  tabs.forEach(function (b) { b.addEventListener('click', function () {
-    tabs.forEach(function (x) { x.setAttribute('aria-selected', x === b); });
-    img.style.opacity = 0;
-    setTimeout(function () { img.src = b.dataset.src; img.alt = b.dataset.alt; img.style.opacity = 1; }, 150);
-  }); });
+  // Each tab row swaps the screenshot in the frame right after it.
+  document.querySelectorAll('.tabs').forEach(function (row) {
+    var img = row.nextElementSibling.querySelector('img.swap'), tabs = row.querySelectorAll('button');
+    tabs.forEach(function (b) { b.addEventListener('click', function () {
+      tabs.forEach(function (x) { x.setAttribute('aria-selected', x === b); });
+      img.style.opacity = 0;
+      setTimeout(function () { img.src = b.dataset.src; img.alt = b.dataset.alt; img.style.opacity = 1; }, 150);
+    }); });
+  });
   // Anonymous page stats (Aptabase): a per-tab session, no cookie, no stored id.
   var sid = sessionStorage.getItem('sid');
   if (!sid) { sid = Math.floor(Date.now() / 1000) + String(Math.floor(Math.random() * 1e8)).padStart(8, '0'); sessionStorage.setItem('sid', sid); }
