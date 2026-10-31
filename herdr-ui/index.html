@@ -41,6 +41,8 @@ section[id] { scroll-margin-top:84px; }
 .btn { display:inline-flex; align-items:center; gap:8px; height:46px; padding:0 22px; border-radius:10px; font:600 15px/1 "Plus Jakarta Sans", sans-serif; background:linear-gradient(180deg,var(--accent),var(--accent2)); color:#fff; box-shadow:0 10px 30px rgba(123,114,240,.45); transition:transform .2s var(--ease), box-shadow .2s, filter .2s; border:0; cursor:pointer; }
 .btn:hover { transform:translateY(-2px); filter:brightness(1.1); box-shadow:0 16px 40px rgba(123,114,240,.6); }
 .btn.sm { height:38px; padding:0 18px; font-size:13px; }
+.btn.bmc { background:#ffdd00; color:#000; box-shadow:none; }
+.btn.kofi { background:#72a4f2; color:#fff; box-shadow:none; }
 .btn.ghost { background:rgba(255,255,255,.08); box-shadow:none; border:1px solid var(--line); color:var(--fg); }
 .btn.ghost:hover { background:rgba(255,255,255,.14); box-shadow:none; }
 
@@ -143,6 +145,7 @@ footer a:hover { color:var(--fg); }
 .js .rv.in { opacity:1; transform:none; }
 
 @media (max-width:960px) {
+  .btn.bmc, .btn.kofi { padding:0 14px; } .btn.bmc .lbl, .btn.kofi .lbl { display:none; } /* icons only: the nav keeps one row */
   .hero-grid, .feature-top, .split { grid-template-columns:1fr; }
   .tilt { transform:none; }
   .float { position:relative; right:auto; bottom:auto; width:100%; margin-top:16px; }
@@ -164,7 +167,7 @@ footer a:hover { color:var(--fg); }
 <div class="topbar"><div class="wrap">
 <nav>
       <a class="logo" href="#"><img src="icon.svg" width="46" height="46" alt=""><span>herdr-ui<small>FOR HERDR</small></span></a>
-      <div class="links"><a href="#overview">Overview</a><a href="#kanban">Kanban</a><a href="#palette">⌘K</a><a href="#assistant">Assistant</a><a href="#native">macOS app</a><a href="#install">Install</a><a class="btn sm" href="https://pub-1ab8d5b5f9dd43a49ae32ff91a1d4394.r2.dev/herdr-ui/herdr-ui.dmg">Download</a></div>
+      <div class="links"><a href="#overview">Overview</a><a href="#kanban">Kanban</a><a href="#palette">⌘K</a><a href="#assistant">Assistant</a><a href="#native">macOS app</a><a href="#install">Install</a><a class="btn sm bmc" href="https://buymeacoffee.com/dccarbone">☕<span class="lbl"> Buy me a coffee</span></a><a class="btn sm kofi" href="https://ko-fi.com/dccarbone">☕<span class="lbl"> Ko-fi</span></a><a class="btn sm" href="https://pub-1ab8d5b5f9dd43a49ae32ff91a1d4394.r2.dev/herdr-ui/herdr-ui.dmg">Download</a></div>
     </nav>
 </div></div>
 
@@ -338,7 +341,7 @@ footer a:hover { color:var(--fg); }
     </div>
   </section>
 
-  <footer><span>herdr-ui · an app for herdr · by <a href="../">Diego Carbone</a></span><span>Contact: <a href="mailto:dccarbone.app@gmail.com">dccarbone.app@gmail.com</a> · 2026</span></footer>
+  <footer><span>herdr-ui · an app for herdr · by <a href="../">Diego Carbone</a></span><span>Contact: <a href="mailto:dccarbone.app@gmail.com">dccarbone.app@gmail.com</a> · Help me pay all my <b>AI subscriptions</b> ❤️ <a href="https://buymeacoffee.com/dccarbone">Buy me a coffee</a> · <a href="https://ko-fi.com/dccarbone">Ko-fi</a> · 2026</span></footer>
 </main>
 
 <script>
