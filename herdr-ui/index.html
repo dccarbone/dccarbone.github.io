@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>herdr-ui · every agent, one screen</title>
-<meta name="description" content="herdr-ui: a better UI for herdr. A live overview of every agent, a kanban by status, pull requests and Jira tasks tied to agents, ⌘K, and native macOS notifications.">
+<meta name="description" content="herdr-ui: a better UI for herdr. A live overview of every agent, a kanban by status, pull requests and Jira tasks tied to agents, ⌘K search, and native macOS notifications.">
 <link rel="icon" href="icon.svg">
 <meta property="og:image" content="https://dccarbone.github.io/herdr-ui/social-preview.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -293,17 +293,17 @@ footer a:hover { color:var(--fg); }
       <div class="feature-top">
         <div>
           <div class="icon"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg></div>
-          <h2>Find anything with <span class="grad">⌘K</span></h2>
-          <p style="color:var(--body)">One search for every session and repo: ⌘K, a few letters, Enter.</p>
+          <h2>Search everything with <span class="grad">⌘K</span></h2>
+          <p style="color:var(--body)">One search for chats, pull requests and Jira tasks: ⌘K, a few letters, Enter.</p>
         </div>
         <div class="points">
-          <div style="--c:var(--pink)"><b>Jump to a session</b>By space, tab, agent or folder.</div>
-          <div style="--c:var(--cyan)"><b>New chat anywhere</b>Pick a folder and a space; your agent starts there.</div>
-          <div style="--c:var(--green)"><b>No duplicates</b>Enter goes to the agent already in that folder.</div>
+          <div style="--c:var(--pink)"><b>Jump to a chat</b>By space, tab, agent or folder.</div>
+          <div style="--c:var(--cyan)"><b>New chat with ⇧⌘K</b>Pick a folder and a space; your agent starts there.</div>
+          <div style="--c:var(--green)"><b>PRs and tasks</b>Enter opens the PR or the task row; ⌘Enter opens GitHub or Jira.</div>
           <div style="--c:var(--orange)"><b>Your folders</b><code>~/repos</code> or any folder, set in Settings.</div>
         </div>
       </div>
-      <div class="frame"><div class="bar"><i></i><i></i><i></i><span>herdr-ui · ⌘K</span></div><img src="palette.png" width="2800" height="1800" alt="The ⌘K palette over the overview, listing matching sessions and folders for a new chat" loading="lazy"></div>
+      <div class="frame"><div class="bar"><i></i><i></i><i></i><span>herdr-ui · ⌘K</span></div><img src="palette.png" width="2800" height="1800" alt="⌘K search over the overview: chats, a Jira task and two pull requests in aligned sections" loading="lazy"></div>
     </div>
   </section>
 
