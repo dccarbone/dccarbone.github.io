@@ -180,7 +180,7 @@ footer a:hover { color:var(--fg); }
       </div>
       <div class="stage">
         <div class="tilt">
-          <div class="frame"><div class="bar"><i></i><i></i><i></i><span>herdr-ui · Overview</span></div><img src="overview.png" width="2800" height="1800" alt="herdr-ui overview: a sidebar with Pull requests, Tasks, spaces and agents beside two live terminals"></div>
+          <div class="frame"><div class="bar"><i></i><i></i><i></i><span>herdr-ui · Overview</span></div><img src="overview.png" width="2800" height="1800" alt="herdr-ui overview: a sidebar with spaces, agents and the usage of Claude, Codex and Cursor beside two live terminals"></div>
         </div>
         <div class="float notif"><div class="ic">🐑<em>1</em></div><div><b>Troubleshooting · checkout 5xx spike</b><span>claude needs you</span></div></div>
       </div>
@@ -201,13 +201,18 @@ footer a:hover { color:var(--fg); }
         <div class="points">
           <div style="--c:var(--pink)"><b>It picks for you</b>Blocked agents first, then working and just finished ones.</div>
           <div style="--c:var(--cyan)"><b>Pin or hide</b>Pinned agents stay; hidden ones come back when they block.</div>
-          <div style="--c:var(--orange)"><b>A compact sidebar</b>New, Search, the views and Profile as icons; spaces as tiles; then the agents.</div>
-          <div style="--c:var(--green)"><b>Limits under each Claude pane</b>Context, model, cache and account limits, with reset times.</div>
+          <div style="--c:var(--orange)"><b>A compact sidebar</b>Search and the views as icons, spaces as pills in their colour, one line per agent.</div>
+          <div style="--c:var(--green)"><b>Usage of every agent</b>Claude, Codex and Cursor limits with reset times in the sidebar; context, model and cache under each pane.</div>
+          <div style="--c:var(--pink)"><b>Tabs that show the cache</b>A line on a tab shortens as the prompt cache of its Claude session runs out; a green light marks Keep running.</div>
           <div style="--c:var(--orange)"><b>Idle sessions sleep</b>An idle Claude or Cursor session closes after an hour; Resume reopens it. One running a command stays open, and ∞ keeps any session open.</div>
           <div style="--c:var(--cyan)"><b>Fork a session</b>Continue a Claude conversation in a new pane; forks nest under their parent.</div>
         </div>
       </div>
-      <div class="frame"><div class="bar"><i></i><i></i><i></i><span>herdr-ui · Overview</span></div><img src="overview.png" width="2800" height="1800" alt="The overview: two working agents side by side, with Pull requests and Tasks in the sidebar" loading="lazy"></div>
+      <div class="tabs" role="tablist" aria-label="Overview or one tab">
+        <button role="tab" aria-selected="true" data-src="overview.png" data-alt="The overview: an agent that waits on an answer and a working one side by side, with spaces, agents and usage in the sidebar">Overview</button>
+        <button role="tab" aria-selected="false" data-src="tab.png" data-alt="One tab of a space: three panes, the tab joined to the panel with its cache line on top">A tab</button>
+      </div>
+      <div class="frame"><div class="bar"><i></i><i></i><i></i><span>herdr-ui · Overview</span></div><img class="swap" src="overview.png" width="2800" height="1800" alt="The overview: an agent that waits on an answer and a working one side by side, with spaces, agents and usage in the sidebar" loading="lazy"></div>
     </div>
   </section>
 
@@ -299,7 +304,7 @@ footer a:hover { color:var(--fg); }
           <div style="--c:var(--orange)"><b>Your folders</b><code>~/repos</code> or any folder, set in Settings.</div>
         </div>
       </div>
-      <div class="frame"><div class="bar"><i></i><i></i><i></i><span>herdr-ui · ⌘K</span></div><img src="palette.png" width="2800" height="1800" alt="⌘K search over the overview: chats, a Jira task and two pull requests in aligned sections" loading="lazy"></div>
+      <div class="frame"><div class="bar"><i></i><i></i><i></i><span>herdr-ui · ⌘K</span></div><img src="palette.png" width="2800" height="1800" alt="⌘K search over the overview: the chats of every space with their agent and state" loading="lazy"></div>
     </div>
   </section>
 
@@ -332,7 +337,7 @@ footer a:hover { color:var(--fg); }
     <div class="card benefits">
       <div class="rv"><div class="icon"><svg viewBox="0 0 24 24"><path d="M4 17l6-6-6-6"/><path d="M12 19h8"/></svg></div><b>Same session</b><p>Your spaces, tabs and agents, as they are.</p></div>
       <div class="rv" style="--i:1"><div class="icon"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div><b>Assistant</b><p>A chat behind <code>&gt;_</code> or ⌘J that runs herdr for you, in plain words.</p></div>
-      <div class="rv" style="--i:2"><div class="icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"/></svg></div><b>Profiles</b><p>Work and Personal: each its own spaces and New chat settings.</p></div>
+      <div class="rv" style="--i:2"><div class="icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"/></svg></div><b>Profiles</b><p>Separate sets of spaces, each with its own New chat settings.</p></div>
       <div class="rv" style="--i:3"><div class="icon"><svg viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 10h1M10 10h1M14 10h1M18 10h1M7 14h10"/></svg></div><b>Keyboard first</b><p>⌘T, ⌘N, ⌘D, ⌘W and more, each key yours to change; ⌘/ lists them.</p></div>
       <div class="rv"><div class="icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M8 21h8"/></svg></div><b>Browser or app</b><p>One Go binary, in the browser or as the macOS app.</p></div>
       <div class="rv" style="--i:1"><div class="icon"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></div><b>Local only</b><p>Listens on 127.0.0.1; one anonymous daily ping, stats opt-in.</p></div>
